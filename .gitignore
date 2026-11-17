@@ -1,3 +1,4 @@
+.env
 data/
 proof_results.md
 .DS_Store

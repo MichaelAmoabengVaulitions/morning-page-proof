@@ -6,7 +6,7 @@ Morning Page works like this. When a user writes a page with the pen in the morn
 
 ## How to run it
 
-You need Node 18 or newer. There is nothing to install.
+You need Node 20.12 or newer, which can read a `.env` file without any packages. There is nothing to install.
 
 Put the export at `data/noor_user_export.json`. It isn't in the repository, because the brief asks us not to publish it.
 
@@ -18,7 +18,13 @@ node src/run.mjs --dry-run
 
 This prints what would be sent to the model for each page, and writes the report with the model parts marked as not run.
 
-To call the model, run it without the flag. The script reads the key from `OPENROUTER_API_KEY`, or asks for it at a prompt where typing is hidden. The key is never written anywhere.
+To call the model, run it without the flag. The script looks for the key in this order: `OPENROUTER_API_KEY` set in your shell, then a `.env` file in the project folder, then a prompt where typing is hidden. The key is never written to the code, the report or the output.
+
+To use a `.env` file, copy the example and paste your key after the `=` sign. `.env` is gitignored, so it can't be committed by accident.
+
+```
+cp .env.example .env
+```
 
 ```
 node src/run.mjs

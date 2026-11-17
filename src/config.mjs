@@ -5,6 +5,8 @@ const projectFolder = path.join(path.dirname(fileURLToPath(import.meta.url)), ".
 
 export const EXPORT_PATH = path.join(projectFolder, "data", "noor_user_export.json");
 export const REPORT_PATH = path.join(projectFolder, "proof_results.md");
+// Holds OPENROUTER_API_KEY on your own machine. It is gitignored, so the key never reaches the repository.
+export const ENV_PATH = path.join(projectFolder, ".env");
 
 export const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 // Small and cheap, which is all one short sentence needs. --model changes it.

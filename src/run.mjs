@@ -7,7 +7,9 @@ import readline from "node:readline";
 import { Writable } from "node:stream";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
-import { DEFAULT_MODEL, EXPORT_PATH, MAX_ATTEMPTS, OPENROUTER_URL, REPORT_PATH, TIMEOUT_MS } from "./config.mjs";
+import {
+  DEFAULT_MODEL, ENV_PATH, EXPORT_PATH, MAX_ATTEMPTS, OPENROUTER_URL, REPORT_PATH, TIMEOUT_MS,
+} from "./config.mjs";
 import { runProof } from "./morning_page.mjs";
 import { buildReport } from "./helpers.mjs";
 
@@ -55,6 +57,8 @@ export function readExport(filePath) {
 }
 
 async function readApiKey() {
+  // A key already set in the shell wins over the one in .env, the same way Node's --env-file works.
+  if (fs.existsSync(ENV_PATH)) process.loadEnvFile(ENV_PATH);
   const apiKey = process.env.OPENROUTER_API_KEY || (await askHidden("OpenRouter API key (typing is hidden): "));
   if (!apiKey) throw new Error("No key given. Use --dry-run to try it without one.");
   return apiKey;
